@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "JournalEntry": {
+      "title": "Journal Entry",
+      "description": "User journal reflection entry with multi-turn conversation messages",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the journal entry"
+        },
+        "userId": {
+          "type": "string",
+          "description": "The UID of the user who owns this journal entry"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the reflection entry",
+          "maxLength": 120
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief synthesis or summary of the reflection",
+          "maxLength": 1000
+        },
+        "starred": {
+          "type": "boolean",
+          "description": "Whether this entry is starred by the user"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp in ISO format"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last updated timestamp in ISO format"
+        },
+        "messages": {
+          "type": "array",
+          "description": "List of multi-turn conversational messages between user and Gemini model"
+        }
+      },
+      "required": ["id", "userId", "title", "createdAt", "updatedAt", "messages"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/entries/{entryId}": {
+      "schema": "JournalEntry",
+      "description": "User-isolated subcollection containing personal journal reflections"
+    }
+  }
+}
